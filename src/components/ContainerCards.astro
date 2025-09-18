@@ -1,0 +1,232 @@
+---
+import { baseUrl } from '@/utils/functions';
+
+const arrayCards = [
+  {
+    title: 'Sprite + Scroll Animation',
+    repo: 'https://github.com/20essentials/project-000-748/',
+    localImage: '/assets/n748.avif',
+    id: '001'
+  },
+  {
+    title: 'Lit',
+    repo: 'https://github.com/20essentials/project-000-755',
+    localImage: '/assets/n755.avif',
+    id: '002'
+  },
+  {
+    title: 'Resplandor',
+    repo: 'https://github.com/20essentials/project-000-761',
+    localImage: '/assets/n761.avif',
+    id: '003'
+  },
+  {
+    title: 'Camb',
+    repo: 'https://github.com/20essentials/project-000-767',
+    localImage: '/assets/n767.avif',
+    id: '004'
+  },
+  {
+    title: 'Custom Color',
+    repo: 'https://github.com/20essentials/project-000-770',
+    localImage: '/assets/n770.avif',
+    id: '005'
+  },
+  {
+    title: 'Cascading Drop',
+    repo: 'https://github.com/20essentials/project-000-778',
+    localImage: '/assets/n778.avif',
+    id: '006'
+  },
+  {
+    title: 'Zoom Hover',
+    repo: 'https://github.com/20essentials/project-000-784',
+    localImage: '/assets/n784.avif',
+    id: '007'
+  },
+  {
+    title: 'Search Table',
+    repo: 'https://github.com/20essentials/project-000-792',
+    localImage: '/assets/n792.avif',
+    id: '008'
+  },
+  {
+    title: 'Rupel',
+    repo: 'https://github.com/20essentials/project-000-793',
+    localImage: '/assets/n793.avif',
+    id: '009'
+  },
+  {
+    title: 'Nature',
+    repo: 'https://github.com/20essentials/project-000-800',
+    localImage: '/assets/n800.avif',
+    id: '010'
+  },
+  {
+    title: 'Sky',
+    repo: 'https://github.com/20essentials/project-000-803',
+    localImage: '/assets/n803.avif',
+    id: '011'
+  },
+  {
+    title: 'Sciup',
+    repo: 'https://github.com/20essentials/project-000-826',
+    localImage: '/assets/n826.avif',
+    id: '012'
+  },
+  {
+    title: 'Rulax',
+    repo: 'https://github.com/20essentials/project-000-843',
+    localImage: '/assets/n843.avif',
+    id: '013'
+  },
+  {
+    title: 'Slider From Up',
+    repo: 'https://github.com/20essentials/project-000-865',
+    localImage: '/assets/n865.avif',
+    id: '014'
+  },
+  {
+    title: 'Utf',
+    repo: 'https://github.com/20essentials/project-000-871',
+    localImage: '/assets/n871.avif',
+    id: '015'
+  },
+  {
+    title: 'Nintendo Switch',
+    repo: 'https://github.com/20essentials/project-000-884',
+    localImage: '/assets/n884.avif',
+    id: '016'
+  },
+  {
+    title: 'Anillo',
+    repo: 'https://github.com/20essentials/project-000-851',
+    localImage: '/assets/n851.avif',
+    id: '017'
+  },
+  {
+    title: 'Lut',
+    repo: 'https://github.com/20essentials/project-000-893',
+    localImage: '/assets/n893.avif',
+    id: '018'
+  },
+  {
+    title: 'Sonic Simple',
+    repo: 'https://github.com/20essentials/project-000-903',
+    localImage: '/assets/n903.avif',
+    id: '019'
+  },
+  {
+    title: 'Escaneador',
+    repo: 'https://github.com/20essentials/project-000-914',
+    localImage: '/assets/n914.avif',
+    id: '020'
+  }
+];
+---
+
+{
+  arrayCards.map(({ id, localImage, repo, title }) => (
+    <section
+      class='am-container-cards'
+      style={{ '--bg': `url(${baseUrl(localImage)})` }}
+    >
+      <div class='thumb'>
+        <a target='_blank' href={repo}>
+          <span>{title}</span>
+        </a>
+      </div>
+    </section>
+  ))
+}
+
+<style>
+  .am-container-cards {
+    scroll-snap-align: center;
+    height: 100vh;
+    display: flex;
+    flex-wrap: wrap;
+    place-content: center;
+    pointer-events: none;
+
+    .thumb {
+      width: 26.04vmax;
+      height: 19.53vmax;
+      perspective: 65.1vmax;
+      border-radius: 0.33vmax;
+      margin: 4.56vmax auto;
+      pointer-events: auto;
+      z-index: 500;
+
+      a {
+        display: block;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+          var(--bg);
+        background-size: 0, cover;
+        transform-style: preserve-3d;
+        transition: all 0.5s;
+        position: relative;
+        background-position: center;
+
+        &:hover {
+          transform: rotateX(80deg);
+          transform-origin: bottom;
+        }
+
+        &::after {
+          content: '';
+          position: absolute;
+          left: 0;
+          bottom: 0;
+          width: 100%;
+          height: 2.34vmax;
+
+          background: inherit;
+          background-size: cover, cover;
+          background-position: bottom;
+          transform: rotateX(90deg);
+          transform-origin: bottom;
+        }
+
+        span {
+          color: white;
+          text-transform: uppercase;
+          position: absolute;
+          top: 100%;
+          left: 0;
+          width: 100%;
+          font: bold 0.78vmax/2.34vmax Montserrat;
+
+          text-align: center;
+          transform: rotateX(-89.99deg);
+          transform-origin: top;
+          z-index: 1;
+        }
+
+        &::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: rgba(0, 0, 0, 0.5);
+          transition: all 0.5s;
+          opacity: 0.15;
+          box-shadow: 0 0 6.51vmax 3.26vmax rgba(0, 0, 0, 0.5);
+          transform: rotateX(95deg) translateZ(-5.21vmax) scale(0.75);
+
+          transform-origin: bottom;
+        }
+
+        &:hover::before {
+          opacity: 1;
+          box-shadow: 0 0 1.63vmax 1.63vmax rgba(0, 0, 0, 0.5);
+          transform: rotateX(0) translateZ(-3.91vmax) scale(0.85);
+        }
+      }
+    }
+  }
+</style>

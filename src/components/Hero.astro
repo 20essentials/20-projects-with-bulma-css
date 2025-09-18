@@ -1,0 +1,21 @@
+---
+import Titulo from './Titulo.astro';
+---
+
+<section class='am-hero'>
+  <Titulo />
+</section>
+
+<style>
+  .am-hero {
+    scroll-snap-align: center;
+    height: 100vh;
+    position: relative;
+    pointer-events: none;
+    display: grid;
+    z-index: 5;
+    place-items: center;
+    font-family: 'SF Pro Text', 'SF Pro Icons', 'AOS Icons', 'Helvetica Neue',
+      Helvetica, Arial, sans-serif, system-ui;
+  }
+</style>

@@ -1,0 +1,213 @@
+---
+import { baseUrl } from '@/utils/functions';
+const logo = baseUrl('/assets/bulma.png');
+---
+
+<article class='am-titulo-of'>
+  <div class='board'>
+    <div class='text-wrap'>
+      <div aria-hidden='true' class='fluid'>CSS.</div>
+    </div>
+  </div>
+  <img class='am-logo' src={logo} alt='Logo' />
+</article>
+
+<style is:global>
+  .am-logo {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 5vmax;
+    bottom: -9vmax;
+  }
+
+  @layer base, demo;
+
+  @layer demo {
+    :root {
+      --hue: 205;
+      --blur: 0;
+      --spread: 2;
+    }
+
+    .am-titulo-of {
+      display: flex;
+      flex-direction: column;
+      place-items: center;
+      width: clamp(23.44vmax, 50vw, 39.06vmax);
+      min-height: 13.02vmax;
+      max-height: 29.3vmax;
+      border-radius: 0.78vmax;
+      padding: 1.04vmax;
+      gap: 1.04vmax;
+      font-family: 'Roboto', sans-serif;
+      z-index: 50;
+      position: relative;
+      pointer-events: auto;
+    }
+
+    .board {
+      --size: calc(var(--spread) * 1cqi);
+      width: 100%;
+      height: 100%;
+      display: grid;
+      place-items: center;
+      position: relative;
+      container-type: inline-size;
+      overflow: hidden;
+      filter: contrast(2);
+      flex: 1;
+    }
+
+    h2 {
+      --font-level: 1.5;
+    }
+
+    .board .fluid {
+      --font-level: var(--font);
+      --variable-unit: 100cqi;
+      margin: 0;
+      text-align: center;
+      text-transform: uppercase;
+      font-weight: var(--weight);
+      line-height: var(--line);
+      font-family: 'Roboto', sans-serif;
+
+      color: hsl(var(--hue) 100% 50%);
+      height: 100%;
+      width: 100%;
+      letter-spacing: 0.07vmax;
+      filter: blur(calc(var(--blur) * 0.07vmax)) brightness(1.25);
+      mask: radial-gradient(circle at center, #000 0.07vmax, #0000 0.07vmax) 50%
+        50% / var(--size) var(--size);
+
+      position: relative;
+    }
+
+    .text-wrap {
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+      clip-path: inset(0 0 0 100%);
+    }
+
+    .text-wrap,
+    .board .fluid {
+      transition: clip-path 0.5s steps(calc(100 / var(--spread)));
+    }
+
+    [data-debug='true'] .text-wrap,
+    [data-debug='true'] .board .fluid {
+      transition: clip-path 0s;
+      clip-path: inset(0 0 0 0);
+    }
+
+    .am-titulo-of:is(:hover, :focus-within) .text-wrap {
+      transition: clip-path 0s;
+      clip-path: inset(0 0 0 0);
+    }
+
+    .board .fluid {
+      clip-path: inset(0 100% 0 0);
+      transition-delay: 0.5s;
+    }
+
+    .am-titulo-of:is(:hover, :focus-within) .board .fluid {
+      clip-path: inset(0 0 0 0);
+      transition-delay: 0s;
+    }
+
+    .am-titulo-of .board::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      mix-blend-mode: plus-lighter;
+      background: radial-gradient(
+          circle at center,
+          hsl(0 0% 40%) 0.07vmax,
+          transparent 0.07vmax
+        )
+        50% 50% / var(--size) var(--size);
+    }
+  }
+
+  .fluid {
+    font-size: 5vmax;
+  }
+
+  div.tp-dfwv {
+    width: 280px;
+    display: none;
+  }
+</style>
+
+<script>
+  //@ts-nocheck
+  import { Pane } from 'tweakpane';
+
+  const config = {
+    text: '20 PROJECTS WITH BULMA CSS',
+    blur: 0,
+    hue: 189,
+    spread: 1.0,
+    font: 7.48,
+    weight: 900,
+    line: 1,
+    debug: true
+  };
+
+  const ctrl = new Pane({
+    title: 'Config',
+    expanded: true
+  });
+
+  ctrl.addBinding(config, 'text', { label: 'Text' });
+  ctrl.addBinding(config, 'blur', {
+    label: 'Blur (px)',
+    min: 0,
+    max: 10,
+    step: 1
+  });
+  ctrl.addBinding(config, 'hue', { label: 'Hue', min: 0, max: 359, step: 1 });
+  ctrl.addBinding(config, 'spread', {
+    label: 'Spread (cqi)',
+    min: 1,
+    max: 10,
+    step: 0.1
+  });
+  ctrl.addBinding(config, 'font', {
+    label: 'Font Level',
+    min: 1,
+    max: 20,
+    step: 0.01
+  });
+  ctrl.addBinding(config, 'weight', {
+    label: 'Font Weight',
+    min: 300,
+    max: 900,
+    step: 10
+  });
+  ctrl.addBinding(config, 'line', {
+    label: 'Line height',
+    min: 0.8,
+    max: 2,
+    step: 0.01
+  });
+  ctrl.addBinding(config, 'debug', { label: 'Debug' });
+
+  const text = document.querySelector('.board .fluid');
+  const sync = () => {
+    document.documentElement.style.setProperty('--blur', config.blur);
+    document.documentElement.style.setProperty('--spread', config.spread);
+    document.documentElement.style.setProperty('--hue', config.hue);
+    document.documentElement.style.setProperty('--font', config.font);
+    document.documentElement.style.setProperty('--weight', config.weight);
+    document.documentElement.style.setProperty('--line', config.line);
+    document.documentElement.dataset.debug = config.debug;
+    text.innerText = config.text;
+  };
+
+  ctrl.on('change', sync);
+  sync();
+</script>
