@@ -30,6 +30,7 @@
 <style is:global>
   .am-background {
     overflow: hidden;
+    touch-action: pan-y;
   }
 
   :root {
@@ -432,11 +433,11 @@
     canvas.style.height = '100%';
     canvas.addEventListener('mousemove', handlePointerMove);
     canvas.addEventListener('touchmove', e => {
-      e.preventDefault();
+      // e.preventDefault();
       handlePointerMove(e);
     });
     canvas.addEventListener('touchstart', e => {
-      e.preventDefault();
+      // e.preventDefault();
       handlePointerMove(e);
       mouseInfos.last = [...mouseInfos.current];
     });
